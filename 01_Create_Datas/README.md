@@ -157,12 +157,3 @@ C’est les paramètres de calculs externes au programme, on y trouve :
 -   La borne minimale du coef y de Julia
 
 -   La borne maximale du coef y de Julia
-
-1.  PYTHON 1 : Création des images taille réel avec plusieurs GPU
-
-2.  PYTHON 2 : Création DZI
-
-3.  WEB : Création site WEB
-
-4.  Remerciements
-    =============
