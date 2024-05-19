@@ -19,6 +19,7 @@ Sommaire :
 
 # 1. Résultats Attendus
 
+Reproduction du site web : [https://fractals-julia.com/](https://fractals-julia.com/)
 
 On chercher à obtenir des fractale de Julia en deux formats d’image avec
 une taille importante (&gt;32k px de coté) :
