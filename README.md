@@ -17,8 +17,8 @@ Sommaire :
 
 8.  Remerciements
 
-1. Résultats Attendus
-==================
+# 1. Résultats Attendus
+
 
 On chercher à obtenir des fractale de Julia en deux formats d’image avec
 une taille importante (&gt;32k px de coté) :
@@ -54,8 +54,7 @@ Description de l’interface WEB :
 
 5.  Explorateur de la fractale, avec un zoom important possible.
 
-2. Démarche générale
-=================
+# 2. Démarche générale
 
 Il y a 4 étapes à respecte :
 
@@ -87,8 +86,8 @@ Il y a 4 étapes à respecte :
 
     -   OS : Linux (WSL 2 Ubuntu) ou Windows
 
-3. Prérequis
-=================
+# 3. Prérequis
+
 
 ## 1. Activer WSL2 et NVIDIA
 
@@ -115,8 +114,8 @@ sudo apt install python3-pip
 pip3 install numpy numba pillow joblib py7zr
 ```
 
-4. CUDA : création du programme de calcul avec plusieurs GPU
-=================
+# 4. CUDA : création du programme de calcul avec plusieurs GPU
+
 
 Le code cuda permet d’utiliser les GPU NVDIA comme centre de calculs.
 
@@ -761,8 +760,7 @@ Exécution du code depuis le répertoire **01-02_Creation_Datas_et_Images_full**
 $ ./main
 ```
 
-5. PYTHON 1 : Création des images taille réel avec plusieurs GPU
-=================
+# 5. PYTHON 1 : Création des images taille réel avec plusieurs GPU
 
 ## 1. Les libraires :
 
