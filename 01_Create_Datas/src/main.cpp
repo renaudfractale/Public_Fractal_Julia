@@ -19,10 +19,10 @@ struct File_Generate
     File_Generate(std::string bin, std::string txt) : bin(bin), txt(txt) {}
 };
 
-// Déclaration de la fonction CUDA externelle
+// Déclaration de la fonction CUDA externe
 extern cudaError_t RUN(ParameterPicture parameter_picture, long *datas, int id_cuda);
 
-// Fonction pour créer un dossier
+// Fonction pour créer le dossier de travail
 std::string CreateFolder(std::string name, std::string dirBase)
 {
     std::string dirNameBase = dirBase;
@@ -65,7 +65,7 @@ bool write_bin(std::string path_file, long *data, size_t size)
     return true;
 }
 
-// Fonction pour générer un fichier avec les paramètres donnés
+// Fonction supervision pour lancement de calculs d'une fractale 
 File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int id_cuda)
 {
     // Création des chemins des fichiers

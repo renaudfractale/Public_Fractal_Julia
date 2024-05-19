@@ -1,0 +1,1 @@
+pandoc -t markdown_strict --extract-media='./' ./00_source_doc/main.docx -o README.md
