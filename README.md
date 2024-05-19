@@ -84,6 +84,3 @@ Il y a 4 étapes à respecte :
     -   Outil : python 3 / HTML / JS
 
     -   OS : Linux (WSL 2 Ubuntu) ou Windows
-
-```{include} _/01\_Create\_Datas/README.md
-```
