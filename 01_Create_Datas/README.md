@@ -1,5 +1,5 @@
 
-CUDA : création du programme de calcul avec plusieurs GPU
+3 CUDA : création du programme de calcul avec plusieurs GPU
 =================
 
 Le code cuda permet d’utiliser les GPU NVDIA comme centre de calculs.
