@@ -1,3 +1,5 @@
+####################  1. Les libraires  ####################
+
 # Librairie de gestion de tableau trés rapide
 import numpy 
 # Librairie de gestion de création de fonction cuda diretement en python
@@ -15,6 +17,8 @@ import gc
 # Librairies de création de fichiers 7zip
 import py7zr
 
+####################  2. Les constantes ####################
+
 # Nombre de Thread lancé
 NB_THREAD = 1
 #Noms des fichiers constant
@@ -24,6 +28,8 @@ FILE_ZIP = "data.zip"
 FILE_7ZIP = "data.7z"
 FILE_NB_TIF= "out1.tif"
 FILE_G_TIF= "out2.tif"
+
+####################  3. La class ParameterPicture et son lecteur  ####################
 
 class ParameterPicture :
     id=0
@@ -50,18 +56,59 @@ def generate_ParameterPicture(path_file_txt:str):
     f.close()
     return param
 
-def create_tif_image_2d(image, filename):
+####################  4. les fonctions cuda  :  ####################
+
+# Transforme un tableau d'itérations en image bi-colore (N & B) 
+@jit(nopython=True)
+def lineariser_2_cuda(input_array):
+    # Initialisation du tableau de sortie avec le meme shape que l'entree
+    output_array = numpy.empty_like(input_array, dtype=numpy.uint8)
+    
+    # Parcours du tableau d'entree
+    for i in range(input_array.shape[0]):
+        for j in range(input_array.shape[1]):
+            # Application de la transformation out = in % 2 * 255
+            output_array[i, j] = (input_array[i, j] % 2) * 255
+    
+    return output_array
+
+# Transforme un tableau d'itérations en image en nueance de gris [0 -> 255]
+@jit(nopython=True)
+def lineariser_255_cuda(input_array, iter_max:int):
+    # Initialisation du tableau de sortie avec le meme shape que l'entree
+    output_array = numpy.empty_like(input_array, dtype=numpy.uint8)
+
+    coef = ceil(iter_max/255) 
+
+    # Parcours du tableau d'entree
+    for i in range(input_array.shape[0]):
+        for j in range(input_array.shape[1]):
+            # Récupération de la valeur de case
+            value = (input_array[i, j])
+            # Assurez-vous que la valeur est dans la plage
+            value = max(0, min(iter_max, value))
+            # Normalisez la valeur dans l'intervalle [0, 1]
+            normalized = (value) / (iter_max)
+            # Ajout de coef
+            phase = normalized *  coef
+            # Application de la transformation 
+            output_array[i, j] = int(phase*255) %255
+    
+    return output_array
+
+
+def save_tif(image, filename):
     # Sauvegarder l'image en TIFF avec compression
     image.save(filename, format='TIFF', compression='tiff_lzw')
 
 
-def lister_paths_bin(baseDir:str,nb_thread:int,value:int):
+def lister_paths_bin(baseDir:str,nb_thread:int,no_thread:int):
     liste_paths= list()
     for path, subdirs, files in os.walk(baseDir):
         for name in files:
             if name==FILE_BIN:
                 num = int(path.split("id_")[-1])
-                if num % nb_thread == value:
+                if num % nb_thread == no_thread:
                     liste_paths.append(path)
     return liste_paths
 
@@ -78,41 +125,6 @@ def bin_file2image_np_2D(file_bin:str,param:ParameterPicture):
     elapsed = time.time() - start_l
     print(f'Temps d\'execution  1d --> 2D : {elapsed:.4} s')
     return data
-
-@jit(nopython=True)
-def lineariser_2_cuda(input_array):
-    # Initialisation du tableau de sortie avec le meme shape que l'entree
-    output_array = numpy.empty_like(input_array, dtype=numpy.uint8)
-    
-    # Parcours du tableau d'entree
-    for i in range(input_array.shape[0]):
-        for j in range(input_array.shape[1]):
-            # Application de la transformation out = in % 2 * 255
-            output_array[i, j] = (input_array[i, j] % 2) * 255
-    
-    return output_array
-
-@jit(nopython=True)
-def lineariser_255_cuda(input_array, iter_max:int):
-    # Initialisation du tableau de sortie avec le meme shape que l'entree
-    output_array = numpy.empty_like(input_array, dtype=numpy.uint8)
-
-    coef = ceil(iter_max/255) 
-
-    # Parcours du tableau d'entree
-    for i in range(input_array.shape[0]):
-        for j in range(input_array.shape[1]):
-            # Application de la transformation out = in % 2 * 255
-            value = (input_array[i, j])
-            # Assurez-vous que la valeur est dans la plage
-            value = max(0, min(iter_max, value))
-            # Normalisez la valeur dans l'intervalle [0, 1]
-            normalized = (value) / (iter_max)
-            phase = normalized *  coef
-
-            output_array[i, j] = int(phase*255) %255
-    
-    return output_array
 
 def sub_main_bin_2_tif(value:int):
     nb_thread = NB_THREAD
@@ -156,10 +168,9 @@ def sub_main_bin_2_tif(value:int):
                     print(f'Temps d\'execution  lineariser_2_cuda: {elapsed:.4} s')
 
                     im_out = Image.fromarray(image_np_lineariser.astype('uint8')).convert('L')
-                    create_tif_image_2d(im_out,file_nb_tif)
+                    save_tif(im_out,file_nb_tif)
                         
                     del image_np_lineariser
-                    #del v_lineariser
                     del im_out
                     gc.collect()
 
@@ -174,8 +185,7 @@ def sub_main_bin_2_tif(value:int):
                     
 
                     im_out = Image.fromarray(image_np_lineariser.astype('uint8')).convert('L')
-                    create_tif_image_2d(im_out,file_g_tif)
-                    #im_out.save(file_g_tif+".tif")
+                    save_tif(im_out,file_g_tif)
 
                     del image_np_lineariser
                     del im_out
@@ -201,21 +211,22 @@ def sub_main_bin_2_tif(value:int):
                     print("***************************************************************************")
                     print(f'Temps d\'execution  {path_bin}: {elapsed_l:.5} s')
                     print("***************************************************************************")
-            break
 
 def main_bin_2_tif():
+    f = open("parameters/id_cuda.txt","r")
+    id_cuda = int(f.readline())
+    f.close()
+    print(f" id cuda = {id_cuda}")
+    cuda.select_device(id_cuda)
+
     nb_thread = NB_THREAD
     values = range(0,nb_thread)
     Parallel(n_jobs=nb_thread,prefer="threads")(delayed(sub_main_bin_2_tif)(value) for value in values)
 
 
-f = open("parameters/id_cuda.txt","r")
-id_cuda = int(f.readline())
-f.close()
-print(f" id cuda = {id_cuda}")
-cuda.select_device(id_cuda)
-start_g = time.time()
-sub_main_bin_2_tif(0)
-end_g = time.time()
-elapsed = end_g - start_g
-print(f'Temps d\'execution  G: {elapsed:.4} s')
+if __name__ == "__main__":
+    start_g = time.time()
+    main_bin_2_tif()
+    end_g = time.time()
+    elapsed = end_g - start_g
+    print(f'Temps d\'execution  G: {elapsed} s')
