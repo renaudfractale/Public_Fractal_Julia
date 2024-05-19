@@ -6,7 +6,7 @@ Le code cuda permet d’utiliser les GPU NVDIA comme centre de calculs.
 
 Le code que je propose est décompose en 5 parties :
 
-# 1.  Le header
+## 1.  Le header
 
 C’est le code commun entre le code cuda et c++, on y trouve :
 
@@ -214,7 +214,7 @@ struct ParameterPicture
 };
 ```
 
-# 2.  Le code cuda
+## 2.  Le code cuda
 
 C’est le code qui calcul la fractale de Julia ou de Mandelbrot, on y
 trouve :
@@ -342,7 +342,7 @@ Error:
     return cudaStatus;
 }
 ```
-# 3.  Le code C++
+## 3.  Le code C++
 
 C’est le code qui permet de gérer la création de fractales de Julia ou
 de Mandelbrot, on y trouve :
@@ -608,7 +608,7 @@ int main()
 }
 ```
 
-# 4.  Le scripte pour compiler le programme.
+## 4.  Le scripte pour compiler le programme.
 
 C’est le scripte qui permet de générer l’application
 
@@ -618,7 +618,7 @@ g++ -c src/main.cpp -o bin/main_cpp.o
 g++ bin/main.o bin/main_cpp.o -o main -lcudart -L/usr/local/cuda/lib64
 ```
 
-# 5.  Les paramètres
+## 5.  Les paramètres
 
 C’est les paramètres de calculs externes au programme, on y trouve :
 
