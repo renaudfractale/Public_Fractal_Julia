@@ -749,13 +749,13 @@ C’est les paramètres de calculs externes au programme, on y trouve :
 
 ## Exécution du programme
 
-Compilation de code depuis le répertoire **01_Creation_Datas** :
+Compilation de code depuis le répertoire **01-02_Creation_Datas_et_Images_full** :
 
 ```bash
 $ bash ./make_main.sh
 ```
 
-Exécution du code depuis le répertoire **01_Creation_Datas**  :
+Exécution du code depuis le répertoire **01-02_Creation_Datas_et_Images_full**  :
 
 ```bash
 $ ./main
