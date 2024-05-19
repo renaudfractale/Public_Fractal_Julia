@@ -57,8 +57,7 @@ Description de l’interface WEB :
 
 Il y a 4 étapes à respecte :
 
-## 1.  Création d’un tableau du nombre d’itération de chaque pixel de
-    l’image
+## 1.  Création d’un tableau du nombre d’itération de chaque pixel de l’image
 
     -   Outil : CUDA (C / C++)
 
@@ -66,8 +65,7 @@ Il y a 4 étapes à respecte :
 
     -   Matériel : Carte graphique Nvdia 4 Go RAM
 
-## 2.  Transformation du tableau du nombre d’itération en images et
-    compression du tableau pour optimise l’usage du disque dur.
+## 2.  Transformation du tableau du nombre d’itération en images et compression du tableau pour optimise l’usage du disque dur.
 
     -   Outil : CUDA (C / C++) et python 3
 
@@ -75,8 +73,7 @@ Il y a 4 étapes à respecte :
 
     -   Matériel : Carte graphique Nvdia 4 Go RAM
 
-## 3.  Création d’image zoomable avec le logiciel « openseadragon » et
-    « deepzoom.py »
+## 3.  Création d’image zoomable avec le logiciel « openseadragon » et « deepzoom.py »
 
     -   Outil : python 3
 
@@ -88,5 +85,5 @@ Il y a 4 étapes à respecte :
 
     -   OS : Linux (WSL 2 Ubuntu) ou Windows
 
-```{include} _01\_Create\_Datas\/README.md
+```{include} _/01\_Create\_Datas/README.md
 ```
