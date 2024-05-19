@@ -44,15 +44,15 @@ Figure : Interface WEB
 
 Description de l’interface WEB :
 
-1.  Titre Dynamique avec les valeurs de X et Y
+1.  A => Titre Dynamique avec les valeurs de X et Y
 
-2.  Axe des X : permet de modifier la valeur de X
+2.  B => Axe des X : permet de modifier la valeur de X
 
-3.  Axe des Y : permet de modifier la valeur de Y
+3.  C => Axe des Y : permet de modifier la valeur de Y
 
-4.  Option d’affichage et bouton de téléchargement de l’image d’origine
+4.  D => Option d’affichage et bouton de téléchargement de l’image d’origine
 
-5.  Explorateur de la fractale, avec un zoom important possible.
+5.  E => Explorateur de la fractale, avec un zoom important possible.
 
 # 2. Démarche générale
 
@@ -89,13 +89,14 @@ Il y a 4 étapes à respecte :
 # 3. Prérequis
 
 
-## 1. Activer WSL2 et NVIDIA
+## 1. Activer WSL2 et NVIDIA (documenation)
 
 [https://learn.microsoft.com/fr-fr/windows/ai/directml/gpu-cuda-in-wsl](https://learn.microsoft.com/fr-fr/windows/ai/directml/gpu-cuda-in-wsl)
 
 [https://docs.nvidia.com/cuda/wsl-user-guide/index.html](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)
 
 
+## 2. Commandes Ubuntu
 ```bash
 # Installation des Pilotes et Toolkits NVIDIA
 sudo apt-key del 7fa2af80
@@ -746,7 +747,7 @@ C’est les paramètres de calculs externes au programme, on y trouve :
 -   La borne maximale du coef y de Julia
 
 
-## Exécution du programme
+## 6.  Exécution du programme
 
 Compilation de code depuis le répertoire **01-02_Creation_Datas_et_Images_full** :
 
