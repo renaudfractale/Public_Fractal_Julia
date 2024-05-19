@@ -65,7 +65,7 @@ Il y a 4 étapes à respecte :
 
     -   OS : Linux (WSL 2 Ubuntu)
 
-    -   Matériel : Carte graphique Nvdia 4 Go RAM
+    -   Matériel : Carte graphique Nvdia 8 Go RAM
 
 ## 2.  Transformation du tableau du nombre d’itération en images et compression du tableau pour optimise l’usage du disque dur.
 
@@ -73,7 +73,7 @@ Il y a 4 étapes à respecte :
 
     -   OS : Linux (WSL 2 Ubuntu)
 
-    -   Matériel : Carte graphique Nvdia 4 Go RAM
+    -   Matériel : Carte graphique Nvdia 8 Go RAM
 
 ## 3.  Création d’image zoomable avec le logiciel « openseadragon » et « deepzoom.py »
 
