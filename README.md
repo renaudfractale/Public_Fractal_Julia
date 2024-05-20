@@ -1,18 +1,18 @@
 # Contents :
 
-1.  Expected results
+1.  [Expected results](https://github.com/renaudfractale/Public_Fractal_Julia#1-expected-results)
 
-2.  General approach
+2.  [General approach](https://github.com/renaudfractale/Public_Fractal_Julia#2-general-approach)
 
-3.  Prerequisites
+3.  [Prerequisites](https://github.com/renaudfractale/Public_Fractal_Julia#3-prerequisites)
 
-4.  CUDA: creating a calculation program with several GPUs
+4.  [CUDA: creating a calculation program with several GPUs](https://github.com/renaudfractale/Public_Fractal_Julia#4-cuda-creating-a-calculation-program-with-several-gpus)
 
-5.  PYTHON 1: Creating life-size images with multiple GPUs
+5.  [PYTHON 1: Creating life-size images with multiple GPUs](https://github.com/renaudfractale/Public_Fractal_Julia#5-python-1-creating-life-size-images-with-multiple-gpus)
 
-6.  PYTHON 2: DZI creation
+6.  [PYTHON 2: DZI creation](https://github.com/renaudfractale/Public_Fractal_Julia#6-python-2-dzi-creation)
 
-7.  WEB : WEB site creation
+7.  [WEB : WEB site creation](https://github.com/renaudfractale/Public_Fractal_Julia#7-web--web-site-creation)
 
 # 1. Expected results
 
@@ -113,7 +113,7 @@ There are 4 steps to follow:
     pip3 install numpy numba pillow joblib py7zr
 ```
 
-# 3 Estimating calculation parameters
+## 3 Estimating calculation parameters
 
 We use the graphics card's 3D calculation function to tile the image as
 follows:
