@@ -135,7 +135,7 @@
         <label for="customRange1" class="form-label" style="text-align: center">Axe X</label>
         <div class="input-group mb-3" style="align-items: center;">
             <button type="button" class="btn btn-primary" onclick="x_move_m()"> X -</button>
-            <input type="range" class="custom-range" id="range_x" min="-150" max="140" step="10" onchange="update_plot()"
+            <input type="range" class="custom-range" id="range_x" min="-150" max="140" step="50" onchange="update_plot()"
                 value="10">
             <button type="button" class="btn btn-primary" onclick="x_move_p()"> X +</button>
         </div>
@@ -144,7 +144,7 @@
 
         <div class="input-group mb-3" style="align-items: center;">
             <button type="button" class="btn btn-primary" onclick="y_move_m()"> Y -</button>
-            <input type="range" class="custom-range" id="range_y" min="-150" max="140" step="10" onchange="update_plot()"
+            <input type="range" class="custom-range" id="range_y" min="-150" max="140" step="50" onchange="update_plot()"
                 value="10">
             <button type="button" class="btn btn-primary" onclick="y_move_p()"> Y +</button>
         </div>
@@ -197,6 +197,17 @@
             update_plot()
         }
         update_plot()
+
+        X_MIN = Math.floor(min_x*100).toString()
+        X_MAX = Math.floor(max_x*100).toString()
+        Y_MIN = Math.floor(min_y*100).toString()
+        Y_MAX = Math.floor(max_y*100).toString()
+
+        document.getElementById("range_x").min = X_MIN
+        document.getElementById("range_x").max = X_MAX
+        
+        document.getElementById("range_y").min = Y_MIN
+        document.getElementById("range_y").max = Y_MAX   
     </script>
 </body>
 

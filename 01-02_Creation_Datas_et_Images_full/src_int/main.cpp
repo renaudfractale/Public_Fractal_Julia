@@ -149,8 +149,9 @@ int main()
 {
     //coté en pixel d'une tuile, il y a int(sqrt(lenG)) de tuile par coté
     //exemple pour 720 ==> il y a  int(sqrt(720)) = 26 tuiles donc 26*720 = 18 720 px de coté soit une image de 350 438 400 px en tout
-    //donc un fichier binaire de 2 803 507 200 octes soit 2.8 Go.
-    const long lenG = 720;
+    //donc un fichier binaire en long de 2 803 507 200 octes soit 2.8 Go
+    //donc un fichier binaire en int de 1 401 353 600 octes soit 1.4 Go
+    const long lenG = 512;
 
     // nombre de fichier binaire max non traité par le scripte python
     const int max_bin_files = 4;
@@ -160,7 +161,7 @@ int main()
     const double coef_x_max = 1.5;
 
     //pas d'itération de X et Y
-    const double coef_pas = 0.1;
+    const double coef_pas = 0.5;
 
     // Vérification de l'existence du fichier id_cuda.txt
     std::string path_file_id_cuda = "./parameters/id_cuda.txt";
