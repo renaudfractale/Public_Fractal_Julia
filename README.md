@@ -35,7 +35,7 @@ Figure : Image bi-couleurs de la fractale de Julia
 Figure : Image en nuance de gris de la fractale de Julia
 
 De même on, utilisera un site web locale ou sur réseaux pour visualiser
-les fractales de Julia, l’interface se tel que :
+les fractales de Julia, l’interface tel que :
 
 <img src=".//media/image3.png" style="width:6.3in;height:4.50556in" alt="Une image contenant texte, capture d’écran Description générée automatiquement" />
 
