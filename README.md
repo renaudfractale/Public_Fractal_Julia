@@ -1067,9 +1067,9 @@ if __name__ == "__main__":
 
 On se base sur [deepzoom3](https://github.com/muranamihdk/deepzoom3) mise à jour vis à vis des évolution de la librairie PIllow.
 
-[deepzoom3](https://github.com/muranamihdk/deepzoom3) permmet de transformer une image de grande taille en tuiles de petites tailles (1024 px) qui permettent d'optimiser l'usage sur un site web. un peu comme google map.
+[deepzoom3](https://github.com/muranamihdk/deepzoom3) permet de transformer une image de grande taille en tuiles de petites tailles (1024 px) qui permettent d'optimiser l'usage sur un site web. un peu comme google map.
 
-le moteur web qui sera utlisé est [openseadragon](https://openseadragon.github.io/)
+le moteur web qui sera utilisé est [openseadragon](https://openseadragon.github.io/)
 
 le code qui réalise cette tache est **Sub_03_Export_Web.py** avec la librairie **lib_deepzoom.py**.
 
@@ -1093,4 +1093,4 @@ value="10">
 value="10">
 ```
 
-Pour lancer le serveur web locale, il faut exécuter le scipte **run_web.sh** dans le dossier **./03-04_Export_WEB_et_site_web/Web** et ouvrir l'url [http://localhost:8000/](http://localhost:8000/)
+Pour lancer le serveur web locale, il faut exécuter le scripte **run_web.sh** dans le dossier **./03-04_Export_WEB_et_site_web/Web** et ouvrir l'url [http://localhost:8000/](http://localhost:8000/)
