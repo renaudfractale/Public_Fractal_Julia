@@ -1,5 +1,4 @@
-Contents :
-==========
+# Contents :
 
 1.  Expected results
 
@@ -367,8 +366,8 @@ This is the common code between cuda and c++, and includes :
     };
 ```
 
-2. The cuda code
-----------------
+## 2. The cuda code
+
 
 This is the code that calculates the Julia or Mandelbrot fractal:
 
@@ -496,8 +495,8 @@ This is the code that calculates the Julia or Mandelbrot fractal:
     }
 ```
 
-3. C++ code
------------
+## 3. C++ code
+
 
 This is the code used to manage the creation of Julia or Mandelbrot
 fractals:
@@ -761,8 +760,7 @@ fractals:
     }
 ```
 
-4. The script to compile the program.
--------------------------------------
+## 4. The script to compile the program.
 
 This is the script used to generate the application
 
@@ -772,8 +770,8 @@ This is the script used to generate the application
     g++ bin/main.o bin/main_cpp.o -o main -lcudart -L/usr/local/cuda/lib64 -L/usr/local/cuda/extras/CUPTI/lib64
 ```
 
-5. Parameters
--------------
+## 5. Parameters
+
 
 These are the program's external calculation parameters:
 
@@ -783,8 +781,7 @@ These are the program's external calculation parameters:
 
 -   The upper bound of Julia's coef y
 
-6. Running the program
-----------------------
+## 6. Running the program
 
 Compilation of code from directory **01-02\_Creation\_Datas\_et\_Images\_full** :
 
@@ -796,11 +793,10 @@ Code execution from directory **01-02\_Creation\_Datas\_et\_Images\_full** :
 ```bash
     $ ./main
 ```
-5. PYTHON 1: Creating life-size images with multiple GPUs
-=========================================================
+# 5. PYTHON 1: Creating life-size images with multiple GPUs
 
-1. Booksellers :
-----------------
+## 1. Booksellers :
+
 ```python
     # Fast table management library
     import numpy 
@@ -820,8 +816,7 @@ Code execution from directory **01-02\_Creation\_Datas\_et\_Images\_full** :
     import py7zr
 ```
 
-2. Constants :
---------------
+## 2. Constants :
 
 ```python
     # Number of Threads launched
@@ -835,8 +830,7 @@ Code execution from directory **01-02\_Creation\_Datas\_et\_Images\_full** :
     FILE_G_TIF= "out2.tif"
 ```
 
-3. The ParameterPicture class and its reader :
-----------------------------------------------
+## 3. The ParameterPicture class and its reader :
 
 ```python
     class ParameterPicture :
@@ -864,8 +858,7 @@ Code execution from directory **01-02\_Creation\_Datas\_et\_Images\_full** :
         return param
 ```
 
-4. cuda functions :
--------------------
+## 4. cuda functions :
 
 ```python
     # Transforms an array of iterations into a two-color image (N & B) 
@@ -907,8 +900,7 @@ Code execution from directory **01-02\_Creation\_Datas\_et\_Images\_full** :
         return output_array
 ```
 
-5. python functions :
----------------------
+## 5. python functions :
 
 -   save\_tif: Create a tif image on hard disk.
 
@@ -950,8 +942,7 @@ Code execution from directory **01-02\_Creation\_Datas\_et\_Images\_full** :
         return data
 ```
 
-6. main functions :
--------------------
+## 6. main functions :
 
 ```python
     def sub_main_bin_2_tif(value:int):
@@ -1041,8 +1032,8 @@ Code execution from directory **01-02\_Creation\_Datas\_et\_Images\_full** :
                         print("***************************************************************************")           
 ```
 
-6. main function dispatcher :
------------------------------
+## 6. main function dispatcher :
+
 
 ```python
     def main_bin_2_tif():
@@ -1057,8 +1048,7 @@ Code execution from directory **01-02\_Creation\_Datas\_et\_Images\_full** :
         Parallel(n_jobs=nb_thread,prefer="threads")(delayed(sub_main_bin_2_tif)(value) for value in values)
 ```
 
-7. script launch :
-------------------
+## 7. script launch :
 
 ```python
     if __name__ == "__main__":
@@ -1069,8 +1059,7 @@ Code execution from directory **01-02\_Creation\_Datas\_et\_Images\_full** :
         print(f 'Execution time G: {elapsed} s')
 ```
 
-6. PYTHON 2: DZI creation
-=========================
+# 6. PYTHON 2: DZI creation
 
 We use [deepzoom3](https://github.com/muranamihdk/deepzoom3), which has
 been updated to take account of changes in the PIllow library.
@@ -1085,8 +1074,7 @@ the web engine to be used is
 the code that performs this task is **Sub\_03\_Export\_Web.py** with the
 **lib\_deepzoom.py** library.
 
-7. WEB : WEB site creation
-==========================
+# 7. WEB : WEB site creation
 
 the code that performs this task is **Sub\_04\_Index\_DZI.py**
 
