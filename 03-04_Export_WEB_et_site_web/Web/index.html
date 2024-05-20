@@ -135,7 +135,8 @@
         <label for="customRange1" class="form-label" style="text-align: center">Axe X</label>
         <div class="input-group mb-3" style="align-items: center;">
             <button type="button" class="btn btn-primary" onclick="x_move_m()"> X -</button>
-            <input type="range" class="custom-range" id="range_x" min="-150" max="140" step="50" onchange="update_plot()"
+            <!-- axe X -->
+            <input type="range" class="custom-range" id="range_x" onchange="update_plot()"
                 value="10">
             <button type="button" class="btn btn-primary" onclick="x_move_p()"> X +</button>
         </div>
@@ -144,7 +145,8 @@
 
         <div class="input-group mb-3" style="align-items: center;">
             <button type="button" class="btn btn-primary" onclick="y_move_m()"> Y -</button>
-            <input type="range" class="custom-range" id="range_y" min="-150" max="140" step="50" onchange="update_plot()"
+            <!-- axe Y -->
+            <input type="range" class="custom-range" id="range_y"  step="50" onchange="update_plot()"
                 value="10">
             <button type="button" class="btn btn-primary" onclick="y_move_p()"> Y +</button>
         </div>

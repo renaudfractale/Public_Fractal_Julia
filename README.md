@@ -116,6 +116,43 @@ sudo apt install python3-pip
 pip3 install numpy numba pillow joblib py7zr
 ```
 
+## 3 Estimer les paramètres des calculs
+
+On utilise la fonction 3D des calcules de la carte graphique donc on découpe en tuile l'image tel que :
+
+- taille de la tuile est un multiple de 256
+ 
+- Le nombre de tuiles par coté est defini tel que : floor(sqrt(taille de la tuile)) :
+
+<img src=".//media/G1.png" alt="Une image contenant texte, capture d’écran Description générée automatiquement" />
+
+- La coté de l'image fait donc : (nombre de tuiles par coté) * (taille de la tuile)
+
+<img src=".//media/G2.png" alt="Une image contenant texte, capture d’écran Description générée automatiquement" />
+
+- On ainsi la taille de l'image non compresé : 
+
+<img src=".//media/G3.png" alt="Une image contenant texte, capture d’écran Description générée automatiquement" />
+
+- et aussi la taille du binaire non compresé en int (32 bits) : 
+
+<img src=".//media/G4.png" alt="Une image contenant texte, capture d’écran Description générée automatiquement" />
+
+- et aussi la taille du binaire non compresé en long (64 bits) : 
+
+<img src=".//media/G5.png" alt="Une image contenant texte, capture d’écran Description générée automatiquement" />
+
+
+Comme les cartes graphiques disponible ont maximun 80 Go de RAM :
+
+- Pour des calculs en INT (32 bits) :
+
+<img src=".//media/G4-zoom.png" alt="Une image contenant texte, capture d’écran Description générée automatiquement" />
+
+- Pour des calculs en LONG (64 bits) :
+
+<img src=".//media/G5-zoom.png" alt="Une image contenant texte, capture d’écran Description générée automatiquement" />
+
 # 4. CUDA : création du programme de calcul avec plusieurs GPU
 
 
@@ -1026,4 +1063,38 @@ if __name__ == "__main__":
     elapsed = end_g - start_g
     print(f'Temps d\'execution  G: {elapsed} s')
 ```
+
+
+# 6.  PYTHON 2 : Création DZI
+
+On se base sur [deepzoom3](https://github.com/muranamihdk/deepzoom3) mise à jour vis à vis des évolution de la librairie PIllow.
+
+[deepzoom3](https://github.com/muranamihdk/deepzoom3) permmet de transformer une image de grande taille en tuiles de petites tailles (1024 px) qui permettent d'optimiser l'usage sur un site web. un peu comme google map.
+
+le moteur web qui sera utlisé est [openseadragon](https://openseadragon.github.io/)
+
+le code qui réalise cette tache est **Sub_03_Export_Web.py** avec la librairie **lib_deepzoom.py**.
+
+
+
+# 7.  WEB : Création site WEB 
+
+le code qui réalise cette tache est **Sub_04_Index_DZI.py**
+
+Il crée un fichier *.js* qui contient la liste des fichiers *.dzi* et des images tailles réelles.
+
+les limites des axes / ranges sont calculées automatiquement, il reste à mettre à la main le pas (step) dans le fichier **index.html**.
+
+```html
+<!-- axe X -->
+<input type="range" class="custom-range" id="range_x"  step="50" onchange="update_plot()"
+value="10">
+
+<!-- axe Y -->
+<input type="range" class="custom-range" id="range_y" step="50" onchange="update_plot()"
+value="10">
+```
+
+
+# 8.  Remerciements
 
