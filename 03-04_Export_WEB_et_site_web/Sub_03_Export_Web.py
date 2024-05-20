@@ -65,7 +65,11 @@ def lister_paths_file_type(baseDir:str,nb_thread:int,value:int, file_type:str):
 def sub_main(value:int,file_type:str):
     nb_thread = NB_THREAD
     baseDir = "."
-    liste_paths = lister_paths_file_type(baseDir,nb_thread,value,file_type)
+    liste_dir = os.listdir(baseDir)
+    liste_paths = list()
+    for dir_name  in liste_dir:
+        if dir_name.startswith("datas_"):
+            liste_paths += lister_paths_file_type(baseDir,nb_thread,value,file_type)
     for path_dir in liste_paths:
         file_txt = os.path.join(path_dir, FILE_TXT)
         file_tif = os.path.join(path_dir, file_type)
@@ -103,6 +107,10 @@ def main_run(file_type:str):
     Parallel(n_jobs=nb_thread,prefer="threads")(delayed(sub_main)(value, file_type) for value in values)
 
 def main_03_export_web():
+    if not os.path.isdir(FOLDER_EXPORT_DZI):
+        Path(FOLDER_EXPORT_DZI).mkdir(parents=True,exist_ok=True)
+    if not os.path.isdir(FOLDER_EXPORT_TIF):
+        Path(FOLDER_EXPORT_TIF).mkdir(parents=True,exist_ok=True)
     main_run(FILE_NB_TIF)
     main_run(FILE_G_TIF)
 
