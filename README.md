@@ -15,8 +15,7 @@ Contents :
 
 7.  WEB : WEB site creation
 
-1. Expected results
-===================
+# 1. Expected results
 
 Website reproduction: https:[//fractals-julia.com/](https://fractals-julia.com/)
 
@@ -50,13 +49,11 @@ WEB interface description :
 
 5.  E =&gt; Fractal explorer, with high zoom capability.
 
-2. General approach
-===================
+# 2. General approach
 
 There are 4 steps to follow:
 
-1. Create a table of the number of iterations for each pixel in the image
--------------------------------------------------------------------------
+## 1. Create a table of the number of iterations for each pixel in the image
 
     - Tool: CUDA (C / C++)
 
@@ -64,8 +61,8 @@ There are 4 steps to follow:
 
     - Hardware: Nvidia 8 GB RAM graphics card
 
-2. Transformation of the iteration number array into images and compression of the array to optimize hard disk usage.
----------------------------------------------------------------------------------------------------------------------
+## 2. Transformation of the iteration number array into images and compression of the array to optimize hard disk usage.
+
 
     - Tools: CUDA (C / C++) and python 3
 
@@ -73,32 +70,32 @@ There are 4 steps to follow:
 
     - Hardware: Nvidia 8 GB RAM graphics card
 
-3. Creating a zoomable image with "openseadragon" and "deepzoom.py" software
-----------------------------------------------------------------------------
+## 3. Creating a zoomable image with "openseadragon" and "deepzoom.py" software
+
 
     - Tool: python 3
 
     - OS: Linux (WSL 2 Ubuntu) or Windows
 
-4. Creation of a website to visualize fractals
-----------------------------------------------
+## 4. Creation of a website to visualize fractals
+
 
     - Tools: python 3 / HTML / JS
 
     - OS: Linux (WSL 2 Ubuntu) or Windows
 
-3. Prerequisites
-================
+# 3. Prerequisites
 
-1. Activate WSL2 and NVIDIA (documentation)
--------------------------------------------
+
+## 1. Activate WSL2 and NVIDIA (documentation)
+
 
 <https://learn.microsoft.com/fr-fr/windows/ai/directml/gpu-cuda-in-wsl>
 
 <https://docs.nvidia.com/cuda/wsl-user-guide/index.html>
 
-2. Ubuntu commands
-------------------
+## 2. Ubuntu commands
+
 ```bash
     # Installing NVIDIA drivers and toolkits
     sudo apt-key del 7fa2af80
@@ -117,8 +114,7 @@ There are 4 steps to follow:
     pip3 install numpy numba pillow joblib py7zr
 ```
 
-3 Estimating calculation parameters
------------------------------------
+# 3 Estimating calculation parameters
 
 We use the graphics card's 3D calculation function to tile the image as
 follows:
@@ -155,15 +151,14 @@ As the graphics cards available have a maximum of 80 GB RAM :
 
 <img src=".//media/G5-zoom.png" alt="Une image contenant texte, capture d’écran Description générée automatiquement" />
 
-4. CUDA: creating a calculation program with several GPUs
-=========================================================
+# 4. CUDA: creating a calculation program with several GPUs
+
 
 The cuda code enables NVDIA GPUs to be used as computing centers.
 
 The code I propose is broken down into 5 parts:
 
-1. The header
--------------
+## 1. The header
 
 This is the common code between cuda and c++, and includes :
 
