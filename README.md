@@ -35,7 +35,7 @@ Figure : Image bi-couleurs de la fractale de Julia
 Figure : Image en nuance de gris de la fractale de Julia
 
 De même on, utilisera un site web locale ou sur réseaux pour visualiser
-les fractales de Julia, l’interface se tel que :
+les fractales de Julia, l’interface tel que :
 
 <img src=".//media/image3.png" style="width:6.3in;height:4.50556in" alt="Une image contenant texte, capture d’écran Description générée automatiquement" />
 
@@ -63,7 +63,7 @@ Il y a 4 étapes à respecte :
 
     -   OS : Linux (WSL 2 Ubuntu)
 
-    -   Matériel : Carte graphique Nvdia 8 Go RAM
+    -   Matériel : Carte graphique Nvidia  8 Go RAM
 
 ## 2.  Transformation du tableau du nombre d’itération en images et compression du tableau pour optimise l’usage du disque dur.
 
@@ -71,7 +71,7 @@ Il y a 4 étapes à respecte :
 
     -   OS : Linux (WSL 2 Ubuntu)
 
-    -   Matériel : Carte graphique Nvdia 8 Go RAM
+    -   Matériel : Carte graphique Nvidia  8 Go RAM
 
 ## 3.  Création d’image zoomable avec le logiciel « openseadragon » et « deepzoom.py »
 
@@ -88,7 +88,7 @@ Il y a 4 étapes à respecte :
 # 3. Prérequis
 
 
-## 1. Activer WSL2 et NVIDIA (documenation)
+## 1. Activer WSL2 et NVIDIA (documentation)
 
 [https://learn.microsoft.com/fr-fr/windows/ai/directml/gpu-cuda-in-wsl](https://learn.microsoft.com/fr-fr/windows/ai/directml/gpu-cuda-in-wsl)
 
@@ -775,7 +775,7 @@ g++ bin/main.o bin/main_cpp.o -o main -lcudart -L/usr/local/cuda/lib64 -L/usr/lo
 
 C’est les paramètres de calculs externes au programme, on y trouve :
 
--   L’id de la care nvdia à utiliser de 0 à N, n étant le nombre -1 de
+-   L’id de la carte nvidia à utiliser de 0 à N, n étant le nombre -1 de
     cartes graphiques disponibles
 
 -   La borne minimale du coef y de Julia
@@ -802,13 +802,13 @@ $ ./main
 ## 1. Les libraires :
 
 ```python 
-# Librairie de gestion de tableau trés rapide
+# Librairie de gestion de tableau très rapide
 import numpy 
-# Librairie de gestion de création de fonction cuda diretement en python
+# Librairie de gestion de création de fonction cuda directement en python
 from numba import jit, cuda
-# Librairie de création et de maipulation d'images
+# Librairie de création et de manipulation d'images
 from PIL import Image
-# Librairie de gestion de chronometre
+# Librairie de gestion de chronomètre
 import time
 # Librairie de création de threads
 from joblib import Parallel, delayed
