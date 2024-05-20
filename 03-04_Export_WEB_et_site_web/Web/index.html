@@ -136,8 +136,8 @@
         <div class="input-group mb-3" style="align-items: center;">
             <button type="button" class="btn btn-primary" onclick="x_move_m()"> X -</button>
             <!-- axe X -->
-            <input type="range" class="custom-range" id="range_x" onchange="update_plot()"
-                value="10">
+            <input type="range" class="custom-range" id="range_x" step="50" onchange="update_plot()"
+                value="0">
             <button type="button" class="btn btn-primary" onclick="x_move_p()"> X +</button>
         </div>
 
@@ -147,7 +147,7 @@
             <button type="button" class="btn btn-primary" onclick="y_move_m()"> Y -</button>
             <!-- axe Y -->
             <input type="range" class="custom-range" id="range_y"  step="50" onchange="update_plot()"
-                value="10">
+                value="0">
             <button type="button" class="btn btn-primary" onclick="y_move_p()"> Y +</button>
         </div>
         <div class="input-group mb-3">

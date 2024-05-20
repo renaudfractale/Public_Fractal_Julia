@@ -15,8 +15,6 @@ Sommaire :
 
 7.  WEB : Création site WEB
 
-8.  Remerciements
-
 # 1. Résultats Attendus
 
 Reproduction du site web : [https://fractals-julia.com/](https://fractals-julia.com/)
@@ -1095,6 +1093,4 @@ value="10">
 value="10">
 ```
 
-
-# 8.  Remerciements
-
+Pour lancer le serveur web locale, il faut exécuter le scipte **run_web.sh** dans le dossier **./03-04_Export_WEB_et_site_web/Web** et ouvrir l'url [http://localhost:8000/](http://localhost:8000/)
