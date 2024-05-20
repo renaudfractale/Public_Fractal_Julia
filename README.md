@@ -775,7 +775,7 @@ g++ bin/main.o bin/main_cpp.o -o main -lcudart -L/usr/local/cuda/lib64 -L/usr/lo
 
 C’est les paramètres de calculs externes au programme, on y trouve :
 
--   L’id de la care nvdia à utiliser de 0 à N, n étant le nombre -1 de
+-   L’id de la carte nvidia à utiliser de 0 à N, n étant le nombre -1 de
     cartes graphiques disponibles
 
 -   La borne minimale du coef y de Julia
