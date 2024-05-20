@@ -88,7 +88,7 @@ Il y a 4 étapes à respecte :
 # 3. Prérequis
 
 
-## 1. Activer WSL2 et NVIDIA (documenation)
+## 1. Activer WSL2 et NVIDIA (documentation)
 
 [https://learn.microsoft.com/fr-fr/windows/ai/directml/gpu-cuda-in-wsl](https://learn.microsoft.com/fr-fr/windows/ai/directml/gpu-cuda-in-wsl)
 
@@ -802,13 +802,13 @@ $ ./main
 ## 1. Les libraires :
 
 ```python 
-# Librairie de gestion de tableau trés rapide
+# Librairie de gestion de tableau très rapide
 import numpy 
-# Librairie de gestion de création de fonction cuda diretement en python
+# Librairie de gestion de création de fonction cuda directement en python
 from numba import jit, cuda
-# Librairie de création et de maipulation d'images
+# Librairie de création et de manipulation d'images
 from PIL import Image
-# Librairie de gestion de chronometre
+# Librairie de gestion de chronomètre
 import time
 # Librairie de création de threads
 from joblib import Parallel, delayed
