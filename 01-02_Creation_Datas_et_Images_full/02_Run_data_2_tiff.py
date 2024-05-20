@@ -20,7 +20,7 @@ import py7zr
 ####################  2. Les constantes ####################
 
 # Nombre de Thread lancé
-NB_THREAD = 1
+NB_THREAD = 4
 #Noms des fichiers constant
 FILE_TXT = "parameters.txt"
 FILE_BIN = "data.bin"
@@ -43,7 +43,7 @@ class ParameterPicture :
     coef_julia_y=0
     power_value=0
     iter_max=0
-
+    type_variable=0
 # Lecteur de la class ParameterPicture
 def generate_ParameterPicture(path_file_txt:str):
     f = open(path_file_txt, "r")
@@ -116,7 +116,12 @@ def bin_file2image_np_2D(file_bin:str,param:ParameterPicture):
     data = numpy.zeros(0)
     start_l = time.time()
     with open(file_bin, 'rb') as f:
-        data = numpy.fromfile(f, dtype=numpy.uint64)
+        if param.type_variable == 32 :
+            data = numpy.fromfile(f, dtype=numpy.int32)
+        elif  param.type_variable == 64 :
+            data = numpy.fromfile(f, dtype=numpy.int64)
+        else:
+            raise Exception(f"type de variable != 32 et 64 => {param.type_variable}")
     elapsed = time.time() - start_l
     print(f'Temps d\'execution  Open : {elapsed:.4} s')
 
@@ -211,6 +216,7 @@ def sub_main_bin_2_tif(value:int):
                     print("***************************************************************************")
                     print(f'Temps d\'execution  {path_bin}: {elapsed_l:.5} s')
                     print("***************************************************************************")
+
 
 def main_bin_2_tif():
     f = open("parameters/id_cuda.txt","r")

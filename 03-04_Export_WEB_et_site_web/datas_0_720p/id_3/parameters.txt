@@ -1,0 +1,12 @@
+id = 3
+type_variable = 32
+lenG = 720
+lenL = 26
+start_x = -2
+start_y = -2
+size = 0.153846
+type_fractal = 1
+coef_julia_x = -1.5
+coef_julia_y = -0.5
+power_value = 2
+iter_max = 2024
