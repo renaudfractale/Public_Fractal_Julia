@@ -65,6 +65,32 @@ bool write_bin(std::string path_file, int *data, size_t size)
     return true;
 }
 
+// Fonction pour écrire des données binaires dans un fichier
+bool write_bin_char(std::string path_file, char *data, size_t size)
+{
+    std::ofstream outfile(path_file, std::ios::out | std::ios::binary);
+    if (!outfile)
+    {
+        std::cerr << "Cannot open file for writing.\n";
+        return false;
+    }
+
+    outfile.write(reinterpret_cast<char *>(data), size * sizeof(char));
+    outfile.close();
+
+    free(data);
+    return true;
+}
+void create_image_BW(int *datas_in, char *datas_out,size_t len ){
+    for(size_t i=0; i< len ; i++){
+        datas_out[i] = datas_in[i] % 2*255;
+    }
+}
+void create_image_G(int *datas_in, char *datas_out,size_t len ){
+    for(size_t i=0; i< len ; i++){
+        datas_out[i] = datas_in[i] % 256;
+    }
+}
 // Fonction supervision pour lancement de calculs d'une fractale 
 File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int id_cuda)
 {
@@ -81,6 +107,8 @@ File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int i
         return file_generate;
 
     int *datas = 0;
+    char *datas_BW =0;
+    
     try
     {
         size_t size = parameter_picture.Get_size_array_2D() * sizeof(int);
@@ -90,7 +118,12 @@ File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int i
         cudaStatus = RUN(parameter_picture, datas, id_cuda);
         if (cudaStatus == cudaSuccess)
         {
-            write_bin(path_bin, datas, parameter_picture.Get_size_array_2D());
+            datas_BW = (char *)malloc(size);
+            create_image_BW(datas,datas_BW,parameter_picture.Get_size_array_2D());
+            write_bin_char(path_bin+".BW.bin", datas_BW, parameter_picture.Get_size_array_2D());
+            create_image_G(datas,datas_BW,parameter_picture.Get_size_array_2D());
+            write_bin_char(path_bin+".G.bin", datas_BW, parameter_picture.Get_size_array_2D());
+            //write_bin(path_bin, datas, parameter_picture.Get_size_array_2D());
             parameter_picture.print_file(path_txt);
             file_generate.exist = true;
         }
@@ -151,7 +184,7 @@ int main()
     //exemple pour 720 ==> il y a  int(sqrt(720)) = 26 tuiles donc 26*720 = 18 720 px de coté soit une image de 350 438 400 px en tout
     //donc un fichier binaire en long de 2 803 507 200 octes soit 2.8 Go
     //donc un fichier binaire en int de 1 401 353 600 octes soit 1.4 Go
-    const long lenG = 1792;
+    const long lenG = 1792-256;
 
     // nombre de fichier binaire max non traité par le scripte python
     const int max_bin_files = 4;
@@ -180,7 +213,7 @@ int main()
 
     // Construction du nom de base du répertoire
     std::string baseDir = "datas_" + id_cuda_str + "_" + std::to_string(lenG) + "p";
-    ParameterPicture parameter_picture(5, lenG, make_double2(-2.0, -1.3), (1.3 + 1.3) / (double)floorf(sqrtf((float)lenG)), 2, (256*6)-1, Type_Fractal::Mandelbrot);
+    ParameterPicture parameter_picture(6, lenG, make_double2(-2.0, -1.3), (1.3 + 1.3) / (double)floorf(sqrtf((float)lenG)), 2, (256*6)-1, Type_Fractal::Mandelbrot);
     parameter_picture.type_variable = Type_Variable::int_32;
     run(parameter_picture, baseDir, id_cuda);
 }
