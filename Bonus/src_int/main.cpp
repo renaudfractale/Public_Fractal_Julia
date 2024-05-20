@@ -114,18 +114,36 @@ File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int i
         size_t size = parameter_picture.Get_size_array_2D() * sizeof(int);
         datas = (int *)malloc(size);
         cudaError_t cudaStatus;
-
+        std::cout << "début du RUN Cuda" << std::endl;
         cudaStatus = RUN(parameter_picture, datas, id_cuda);
+        std::cout << "fin du RUN Cuda" << std::endl;
         if (cudaStatus == cudaSuccess)
         {
-            datas_BW = (char *)malloc(size);
+            std::cout << "début malloc datas_BW" << std::endl;
+            datas_BW = (char *)malloc(parameter_picture.Get_size_array_2D() * sizeof(char));
+            std::cout << "fin malloc datas_BW" << std::endl;
+
+            std::cout << "début create_image_BW" << std::endl;
             create_image_BW(datas,datas_BW,parameter_picture.Get_size_array_2D());
+            std::cout << "fin create_image_BW" << std::endl;
+
+            std::cout << "début write_bin_char BW" << std::endl;
             write_bin_char(path_bin+".BW.bin", datas_BW, parameter_picture.Get_size_array_2D());
+            std::cout << "fin write_bin_char BW" << std::endl;
+
+            std::cout << "début create_image_G" << std::endl;
             create_image_G(datas,datas_BW,parameter_picture.Get_size_array_2D());
+            std::cout << "fin create_image_G" << std::endl;
+
+            std::cout << "début write_bin_char G" << std::endl;
             write_bin_char(path_bin+".G.bin", datas_BW, parameter_picture.Get_size_array_2D());
+            std::cout << "Fin write_bin_char G" << std::endl;
+           
             //write_bin(path_bin, datas, parameter_picture.Get_size_array_2D());
             parameter_picture.print_file(path_txt);
             file_generate.exist = true;
+            free(datas);
+            free(datas_BW);
         }
         else
         {
