@@ -133,12 +133,13 @@
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">select type picture</span>
             <select class="form-select" onchange="update_plot()" id="select_dzi">
-            
+
             </select>
-            <a id="button_dowload" href=""><button type="button" class="btn btn-primary" style="width: 100%;">Downnload raw
-                file (.tif)</button></a>
+            <a id="button_dowload" href=""><button type="button" class="btn btn-primary" style="width: 100%;">Downnload
+                    raw
+                    file (.tif)</button></a>
         </div>
-       
+
         <div id="openseadragon1" style="width: 100%;height: 600px;"></div>
     </div>
 
@@ -156,22 +157,24 @@
                 button_dowload.style.display = "none"
             }
         }
-        let i =0
-         for (const key in dataBase) {
+        let i = 0
+        for (const key in dataBase) {
             if (Object.hasOwnProperty.call(dataBase, key)) {
 
                 let option = document.createElement("option")
                 option.value = key
-                if(i==0){
-                    option.selected=true  
+                if (i == 0) {
+                    option.selected = true
                 }
-                option.innerText = dataBase[key]
+                option.innerText = dataBase[key].split("/")[2].replace("out1","B&W").replace("out2","Grays").replace(".tif","")
 
                 document.getElementById("select_dzi").appendChild(option)
 
                 i++
             }
-         } 
+        }
+
+        update_plot() 
     </script>
 </body>
 

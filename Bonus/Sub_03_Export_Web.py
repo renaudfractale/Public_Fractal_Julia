@@ -76,6 +76,7 @@ def sub_main(value:int,file_type:str):
 
         if os.path.isfile(file_txt) and os.path.isfile(file_tif):
             id= int(path_dir.split("id_")[-1])
+            nbp = path_dir.split("/")[-2].split("_")[-1]
             param = generate_ParameterPicture(file_txt)
             print(path_dir[2:].split("/")[0])
             x_coef = int(param.coef_julia_x*100)
@@ -83,7 +84,7 @@ def sub_main(value:int,file_type:str):
             dir_export =FOLDER_EXPORT_DZI
 
             file_sans_ext = file_type.split(".")[0]
-            file_dzi_tif = f"{file_sans_ext}_{id}.tif"
+            file_dzi_tif = f"{file_sans_ext}_{nbp}_{id}.tif"
             new_file_tif = os.path.join(path_dir,file_dzi_tif)
             shutil.copyfile(file_tif,new_file_tif)
 
