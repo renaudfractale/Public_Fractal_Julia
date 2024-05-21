@@ -101,7 +101,7 @@ cudaError_t RUN(ParameterPicture parameter_picture, unsigned char *datas, int id
     }
     std::cout << "End  Vérifier si le lancement du kernel a échoué" << std::endl;
 
-    std::cout << "Start Attendre la fin de l'exécution du kerne" << std::endl;
+    std::cout << "Start Attendre la fin de l'exécution du kernel" << std::endl;
     // Attendre la fin de l'exécution du kernel
     cudaStatus = cudaDeviceSynchronize();
     if (cudaStatus != cudaSuccess)
@@ -109,7 +109,7 @@ cudaError_t RUN(ParameterPicture parameter_picture, unsigned char *datas, int id
         fprintf(stderr, "cudaDeviceSynchronize returned error code %d after launching Kernel_Picture!\n", cudaStatus);
         goto Error;
     }
-    std::cout << "End Attendre la fin de l'exécution du kerne" << std::endl;
+    std::cout << "End Attendre la fin de l'exécution du kernel" << std::endl;
 
     // Copier les données du GPU vers la mémoire de l'hôte
     std::cout << "Start Copier les données du GPU vers la mémoire de l'hôte" << std::endl;
