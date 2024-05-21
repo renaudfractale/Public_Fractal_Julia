@@ -38,30 +38,6 @@ def index_dzi():
     min_y= None
     max_y= None
     for file_path in files_path:
-        name_file = file_path.split("/")[-1].split(".")[0]
-
-        x = float(name_file.split("_")[1])/100.0
-        y = float(name_file.split("_")[2])/100.0
-        if min_x == None:
-            min_x = x
-        if max_x == None:
-            max_x = x
-        
-        if min_y == None:
-            min_y = y
-        if max_y == None:
-            max_y = y
-
-        if min_x > x:
-            min_x = x
-        if max_x < x:
-            max_x = x         
-
-        if min_y > y:
-            min_y = y
-        if max_y < y:
-            max_y = y
-
         name_file_tif = file_path.split("/")[-1].replace(".dzi",".tif")
         print(name_file_tif)
         path_file_tif  = FOLDER_EXPORT_TIF_ANALYSE+"/"+name_file_tif

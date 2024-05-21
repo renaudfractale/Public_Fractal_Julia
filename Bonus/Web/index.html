@@ -8,12 +8,10 @@
     <script src="/openseadragon/openseadragon.js"></script>
     <script src="/js/data.js"></script>
     <script type="text/javascript">
-        function plot(x, y, type) {
+        function plot(path_dzi) {
             let id = "openseadragon1"
-            let tileSources = "/pan/" + type + "_" + x + "_" + y + ".dzi"
-
+            let tileSources = path_dzi
             document.getElementById(id).innerHTML = ""
-
             status = dataBase[tileSources]
             console.log(status)
             if (status != "undefined") {
@@ -131,30 +129,11 @@
 
 <body style="height: 1028px">
     <div style="padding: 30px;">
-        <h1 id="title" style="text-align: center;"> fractal of Julia of c=</h1>
-        <label for="customRange1" class="form-label" style="text-align: center">Axe X</label>
-        <div class="input-group mb-3" style="align-items: center;">
-            <button type="button" class="btn btn-primary" onclick="x_move_m()"> X -</button>
-            <!-- axe X -->
-            <input type="range" class="custom-range" id="range_x" step="50" onchange="update_plot()"
-                value="0">
-            <button type="button" class="btn btn-primary" onclick="x_move_p()"> X +</button>
-        </div>
-
-        <label for="customRange1" class="form-label" style="text-align: center">Axe Y</label>
-
-        <div class="input-group mb-3" style="align-items: center;">
-            <button type="button" class="btn btn-primary" onclick="y_move_m()"> Y -</button>
-            <!-- axe Y -->
-            <input type="range" class="custom-range" id="range_y"  step="50" onchange="update_plot()"
-                value="0">
-            <button type="button" class="btn btn-primary" onclick="y_move_p()"> Y +</button>
-        </div>
+        <h1 id="title" style="text-align: center;"> fractal of Mandelbrot</h1>
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">select type picture</span>
-            <select class="form-select" id="type" onchange="update_plot()">
-                <option selected value="out1">Black and White</option>
-                <option value="out2">Gray</option>
+            <select class="form-select" onchange="update_plot()" id="select_dzi">
+            
             </select>
             <a id="button_dowload" href=""><button type="button" class="btn btn-primary" style="width: 100%;">Downnload raw
                 file (.tif)</button></a>
@@ -165,14 +144,9 @@
 
     <script>
         function update_plot() {
-            let x = document.getElementById("range_x").value.toString()
-            let y = document.getElementById("range_y").value.toString()
-            let type = document.getElementById("type").value
+            let select_dzi = document.getElementById("select_dzi").value
 
-            title = "fractal of Julia of c=" + (parseInt(x) / 100).toString() + "+i*" + (parseInt(y) / 100).toString()
-            document.getElementById("title").innerText = title
-
-            status = plot(x, y, type)
+            status = plot(select_dzi)
 
             button_dowload = document.getElementById("button_dowload")
             if (status != "") {
@@ -182,34 +156,22 @@
                 button_dowload.style.display = "none"
             }
         }
-        function y_move_p() {
-            document.getElementById("range_y").value = (parseInt(document.getElementById("range_y").value) + 10).toString()
-            update_plot()
-        }
-        function y_move_m() {
-            document.getElementById("range_y").value = (parseInt(document.getElementById("range_y").value) - 10).toString()
-            update_plot()
-        }
-        function x_move_p() {
-            document.getElementById("range_x").value = (parseInt(document.getElementById("range_x").value) + 10).toString()
-            update_plot()
-        }
-        function x_move_m() {
-            document.getElementById("range_x").value = (parseInt(document.getElementById("range_x").value) - 10).toString()
-            update_plot()
-        }
-        update_plot()
+        let i =0
+         for (const key in dataBase) {
+            if (Object.hasOwnProperty.call(dataBase, key)) {
 
-        X_MIN = Math.floor(min_x*100).toString()
-        X_MAX = Math.floor(max_x*100).toString()
-        Y_MIN = Math.floor(min_y*100).toString()
-        Y_MAX = Math.floor(max_y*100).toString()
+                let option = document.createElement("option")
+                option.value = key
+                if(i==0){
+                    option.selected=true  
+                }
+                option.innerText = dataBase[key]
 
-        document.getElementById("range_x").min = X_MIN
-        document.getElementById("range_x").max = X_MAX
-        
-        document.getElementById("range_y").min = Y_MIN
-        document.getElementById("range_y").max = Y_MAX   
+                document.getElementById("select_dzi").appendChild(option)
+
+                i++
+            }
+         } 
     </script>
 </body>
 
