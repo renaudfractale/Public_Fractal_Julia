@@ -167,3 +167,6 @@ cython_debug/
 Bonus/main_int
 Bonus/bin/main_cpp.o
 Bonus/bin/main.o
+/Bonus/bin
+Bonus/main_int
+/Bonus/datas_0_1536p

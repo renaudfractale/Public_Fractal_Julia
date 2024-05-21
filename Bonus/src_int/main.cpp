@@ -147,8 +147,7 @@ File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int i
             std::cout << "début write_bin_char G" << std::endl;
             write_bin_char(path_bin+".G.bin", datas_G, parameter_picture.Get_size_array_2D());
             std::cout << "Fin write_bin_char G" << std::endl;
-           
-
+        
             free(datas);
         }
         else
@@ -237,7 +236,7 @@ int main()
 
     // Construction du nom de base du répertoire
     std::string baseDir = "datas_" + id_cuda_str + "_" + std::to_string(lenG) + "p";
-    ParameterPicture parameter_picture(7, lenG, make_double2(-2.0, -1.3), (1.3 + 1.3) / (double)floorf(sqrtf((float)lenG)), 2, (256*6)-1, Type_Fractal::Mandelbrot);
+    ParameterPicture parameter_picture(8, lenG, make_double2(-2.0, -1.3), (1.3 + 1.3) / (double)floorf(sqrtf((float)lenG)), 2, (256*6), Type_Fractal::Mandelbrot);
     parameter_picture.type_variable = Type_Variable::int_32;
     run(parameter_picture, baseDir, id_cuda);
 }
