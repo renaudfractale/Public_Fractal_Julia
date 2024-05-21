@@ -150,7 +150,6 @@ File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int i
            
 
             free(datas);
-            free(datas_BW);
         }
         else
         {
@@ -160,7 +159,6 @@ File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int i
     catch (const std::exception &)
     {
         free(datas);
-        free(datas_BW);
         file_generate.exist = false;
         if (if_file_exist(path_txt))
             std::remove(path_txt.c_str());
