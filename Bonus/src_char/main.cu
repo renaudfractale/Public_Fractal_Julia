@@ -3,7 +3,7 @@
 #include <stdlib.h> // Pour les fonctions standard C comme malloc
 #include <stdint.h>
 
-__global__ int compute_fractale(Complex &z, Complex &c, double &power_value, long &iter_max)
+ __device__ int compute_fractale(Complex &z, Complex &c, double &power_value, long &iter_max)
 {
     int iter = 0;
 
@@ -42,20 +42,22 @@ __global__ void Kernel_Picture(ParameterPicture parameter_picture, unsigned char
             c.y = parameter_picture.coef_julia.y;
         }
 
-      int iter = compute_fractale(z,c,parameter_picture.power_value, parameter_picture.iter_max);
+        int iter = compute_fractale(z, c, parameter_picture.power_value, parameter_picture.iter_max);
 
         // Stocker le nombre d'itérations dans le tableau de données
-        if(Type_Image::BW == type_image){
-            data[index] = iter % 2 *255;
-        } else if(Type_Image::G == type_image){
+        if (Type_Image::BW == type_image)
+        {
+            data[index] = iter % 2 * 255;
+        }
+        else if (Type_Image::G == type_image)
+        {
             data[index] = iter % 256;
         }
-        
     }
 }
 
 // Fonction pour exécuter le kernel CUDA
-cudaError_t RUN(ParameterPicture parameter_picture, unsigned char *datas, int id_cuda,Type_Image type_image)
+cudaError_t RUN(ParameterPicture parameter_picture, unsigned char *datas, int id_cuda, Type_Image type_image)
 {
     // Calculer la taille des données à allouer
     size_t size = parameter_picture.Get_size_array_2D() * sizeof(unsigned char);
@@ -85,8 +87,11 @@ cudaError_t RUN(ParameterPicture parameter_picture, unsigned char *datas, int id
     }
 
     // Lancer le kernel CUDA
+    std::cout << "Start Kernel_Picture" << std::endl;
     Kernel_Picture<<<numBlocks, threadsPerBlock>>>(parameter_picture, dev_datas, type_image);
+    std::cout << "End Kernel_Picture" << std::endl;
 
+    std::cout << "Start Vérifier si le lancement du kernel a échoué" << std::endl;
     // Vérifier si le lancement du kernel a échoué
     cudaStatus = cudaGetLastError();
     if (cudaStatus != cudaSuccess)
@@ -94,7 +99,9 @@ cudaError_t RUN(ParameterPicture parameter_picture, unsigned char *datas, int id
         fprintf(stderr, "Kernel_Picture launch failed: %s\n", cudaGetErrorString(cudaStatus));
         goto Error;
     }
+    std::cout << "End  Vérifier si le lancement du kernel a échoué" << std::endl;
 
+    std::cout << "Start Attendre la fin de l'exécution du kerne" << std::endl;
     // Attendre la fin de l'exécution du kernel
     cudaStatus = cudaDeviceSynchronize();
     if (cudaStatus != cudaSuccess)
@@ -102,15 +109,18 @@ cudaError_t RUN(ParameterPicture parameter_picture, unsigned char *datas, int id
         fprintf(stderr, "cudaDeviceSynchronize returned error code %d after launching Kernel_Picture!\n", cudaStatus);
         goto Error;
     }
+    std::cout << "End Attendre la fin de l'exécution du kerne" << std::endl;
 
     // Copier les données du GPU vers la mémoire de l'hôte
+    std::cout << "Start Copier les données du GPU vers la mémoire de l'hôte" << std::endl;
     cudaStatus = cudaMemcpy(datas, dev_datas, size, cudaMemcpyDeviceToHost);
     if (cudaStatus != cudaSuccess)
     {
         fprintf(stderr, "cudaMemcpy failed!");
         goto Error;
     }
-
+    std::cout << "End Copier les données du GPU vers la mémoire de l'hôte" << std::endl;
+    
     // Libérer la mémoire allouée sur le GPU
     cudaFree(dev_datas);
 

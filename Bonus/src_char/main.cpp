@@ -124,7 +124,7 @@ File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int i
         cudaError_t cudaStatus;
 
         std::cout << "début du RUN Cuda" << std::endl;
-        cudaStatus = RUN(parameter_picture, datas, id_cuda, Type_Image::BW);
+        cudaStatus = RUN(parameter_picture, datas_BW, id_cuda, Type_Image::BW);
         std::cout << "fin du RUN Cuda" << std::endl;
 
         if (cudaStatus == cudaSuccess)
@@ -143,7 +143,7 @@ File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int i
         std::cout << "fin malloc datas_BW" << std::endl;
 
         std::cout << "début du RUN Cuda" << std::endl;
-        cudaStatus = RUN(parameter_picture, datas, id_cuda, Type_Image::BW);
+        cudaStatus = RUN(parameter_picture, datas_G, id_cuda, Type_Image::BW);
         std::cout << "fin du RUN Cuda" << std::endl;
         if (cudaStatus == cudaSuccess)
         {
@@ -207,7 +207,7 @@ int main()
     // exemple pour 720 ==> il y a  int(sqrt(720)) = 26 tuiles donc 26*720 = 18 720 px de coté soit une image de 350 438 400 px en tout
     // donc un fichier binaire en long de 2 803 507 200 octes soit 2.8 Go
     // donc un fichier binaire en int de 1 401 353 600 octes soit 1.4 Go
-    const long lenG = 1792 - 256;
+    const long lenG = 2816; //1792 - 256;
 
     // nombre de fichier binaire max non traité par le scripte python
     const int max_bin_files = 4;
@@ -236,7 +236,7 @@ int main()
 
     // Construction du nom de base du répertoire
     std::string baseDir = "datas_" + id_cuda_str + "_" + std::to_string(lenG) + "p";
-    ParameterPicture parameter_picture(8, lenG, make_double2(-2.0, -1.3), (1.3 + 1.3) / (double)floorf(sqrtf((float)lenG)), 2, (256 * 6), Type_Fractal::Mandelbrot);
+    ParameterPicture parameter_picture(9, lenG, make_double2(-2.0, -1.3), (1.3 + 1.3) / (double)floorf(sqrtf((float)lenG)), 2, (256 * 6), Type_Fractal::Mandelbrot);
     parameter_picture.type_variable = Type_Variable::int_32;
     run(parameter_picture, baseDir, id_cuda);
 }
