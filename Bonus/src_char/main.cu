@@ -3,8 +3,21 @@
 #include <stdlib.h> // Pour les fonctions standard C comme malloc
 #include <stdint.h>
 
+__global__ int compute_fractale(Complex &z, Complex &c, double &power_value, long &iter_max)
+{
+    int iter = 0;
+
+    // Calculer le nombre d'itérations pour la fractale
+    while (z.norm() < 2.0 && iter < iter_max)
+    {
+        z = z.power(power_value) + c;
+        iter++;
+    }
+    return iter;
+}
+
 // Kernel CUDA pour générer une image fractale
-__global__ void Kernel_Picture(ParameterPicture parameter_picture, int *data)
+__global__ void Kernel_Picture(ParameterPicture parameter_picture, unsigned char *data, Type_Image type_image)
 {
     // Calcul des indices 3D pour chaque thread
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -28,33 +41,31 @@ __global__ void Kernel_Picture(ParameterPicture parameter_picture, int *data)
             c.x = parameter_picture.coef_julia.x;
             c.y = parameter_picture.coef_julia.y;
         }
-        
-        int iter = 0;
 
-        // Calculer le nombre d'itérations pour la fractale
-        while (z.norm() < 2.0 && iter < parameter_picture.iter_max)
-        {
-            z = z.power(parameter_picture.power_value) + c;
-            iter++;
-        }
+      int iter = compute_fractale(z,c,parameter_picture.power_value, parameter_picture.iter_max);
 
         // Stocker le nombre d'itérations dans le tableau de données
-        data[index] = iter;
+        if(Type_Image::BW == type_image){
+            data[index] = iter % 2 *255;
+        } else if(Type_Image::G == type_image){
+            data[index] = iter % 256;
+        }
+        
     }
 }
 
 // Fonction pour exécuter le kernel CUDA
-cudaError_t RUN(ParameterPicture parameter_picture, int *datas, int id_cuda)
+cudaError_t RUN(ParameterPicture parameter_picture, unsigned char *datas, int id_cuda,Type_Image type_image)
 {
     // Calculer la taille des données à allouer
-    size_t size = parameter_picture.Get_size_array_2D() * sizeof(int);
-    int *dev_datas = 0;
+    size_t size = parameter_picture.Get_size_array_2D() * sizeof(unsigned char);
+    unsigned char *dev_datas = 0;
     cudaError_t cudaStatus;
 
     // Définir la configuration des threads et des blocs
     const dim3 threadsPerBlock(16, 16, 4);
-    const dim3 numBlocks((parameter_picture.lenG + threadsPerBlock.x - 1) / threadsPerBlock.x, 
-                         (parameter_picture.lenG + threadsPerBlock.y - 1) / threadsPerBlock.y, 
+    const dim3 numBlocks((parameter_picture.lenG + threadsPerBlock.x - 1) / threadsPerBlock.x,
+                         (parameter_picture.lenG + threadsPerBlock.y - 1) / threadsPerBlock.y,
                          (parameter_picture.lenG + threadsPerBlock.z - 1) / threadsPerBlock.z);
 
     // Sélectionner le GPU à utiliser
@@ -74,7 +85,7 @@ cudaError_t RUN(ParameterPicture parameter_picture, int *datas, int id_cuda)
     }
 
     // Lancer le kernel CUDA
-    Kernel_Picture<<<numBlocks, threadsPerBlock>>>(parameter_picture, dev_datas);
+    Kernel_Picture<<<numBlocks, threadsPerBlock>>>(parameter_picture, dev_datas, type_image);
 
     // Vérifier si le lancement du kernel a échoué
     cudaStatus = cudaGetLastError();

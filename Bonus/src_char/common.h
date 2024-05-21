@@ -14,6 +14,8 @@ enum Type_Fractal { Mandelbrot, Julia };
 // Définition de l'énumération pour le type de variable 32 ou 64 bits
 enum Type_Variable { int_32 = 32, long_64 = 64 };
 
+enum Type_Image { BW, G};
+
 // Définition de la structure Complex pour représenter les nombres complexes
 struct Complex
 {
