@@ -66,7 +66,7 @@ bool write_bin(std::string path_file, int *data, size_t size)
 }
 
 // Fonction pour écrire des données binaires dans un fichier
-bool write_bin_char(std::string path_file, char *data, size_t size)
+bool write_bin_char(std::string path_file, unsigned char *data, size_t size)
 {
     std::ofstream outfile(path_file, std::ios::out | std::ios::binary);
     if (!outfile)
@@ -75,20 +75,21 @@ bool write_bin_char(std::string path_file, char *data, size_t size)
         return false;
     }
 
-    outfile.write(reinterpret_cast<char *>(data), size * sizeof(char));
+    outfile.write(reinterpret_cast<char *>(data), size * sizeof( unsigned char));
     outfile.close();
 
     free(data);
     return true;
 }
-void create_image_BW(int *datas_in, char *datas_out,size_t len ){
+void create_image_BW(int *datas_in, unsigned char  *datas_out,size_t len ){
     for(size_t i=0; i< len ; i++){
-        datas_out[i] = datas_in[i] % 2*255;
+        datas_out[i] = (unsigned char)((datas_in[i] % 2)*255);
     }
 }
-void create_image_G(int *datas_in, char *datas_out,size_t len ){
+void create_image_G(int *datas_in, unsigned char *datas_out,size_t len ){
     for(size_t i=0; i< len ; i++){
-        datas_out[i] = datas_in[i] % 256;
+        //std::cout << "(datas_in[i] % 255) = " << (datas_in[i] % 255) << std::endl;
+        datas_out[i] = (datas_in[i] % 255);
     }
 }
 // Fonction supervision pour lancement de calculs d'une fractale 
@@ -107,8 +108,8 @@ File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int i
         return file_generate;
 
     int *datas = 0;
-    char *datas_BW =0;
-    
+    unsigned char *datas_BW =0;
+    unsigned char *datas_G =0;
     try
     {
         size_t size = parameter_picture.Get_size_array_2D() * sizeof(int);
@@ -119,8 +120,12 @@ File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int i
         std::cout << "fin du RUN Cuda" << std::endl;
         if (cudaStatus == cudaSuccess)
         {
+            //write_bin(path_bin, datas, parameter_picture.Get_size_array_2D());
+            parameter_picture.print_file(path_txt);
+            file_generate.exist = true;
+           
             std::cout << "début malloc datas_BW" << std::endl;
-            datas_BW = (char *)malloc(parameter_picture.Get_size_array_2D() * sizeof(char));
+            datas_BW = (unsigned char *)malloc(parameter_picture.Get_size_array_2D() * sizeof(unsigned char));
             std::cout << "fin malloc datas_BW" << std::endl;
 
             std::cout << "début create_image_BW" << std::endl;
@@ -131,17 +136,19 @@ File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int i
             write_bin_char(path_bin+".BW.bin", datas_BW, parameter_picture.Get_size_array_2D());
             std::cout << "fin write_bin_char BW" << std::endl;
 
+            std::cout << "début malloc datas_BW" << std::endl;
+            datas_G = (unsigned char *)malloc(parameter_picture.Get_size_array_2D() * sizeof(unsigned char));
+            std::cout << "fin malloc datas_BW" << std::endl;
+
             std::cout << "début create_image_G" << std::endl;
-            create_image_G(datas,datas_BW,parameter_picture.Get_size_array_2D());
+            create_image_G(datas,datas_G,parameter_picture.Get_size_array_2D());
             std::cout << "fin create_image_G" << std::endl;
 
             std::cout << "début write_bin_char G" << std::endl;
-            write_bin_char(path_bin+".G.bin", datas_BW, parameter_picture.Get_size_array_2D());
+            write_bin_char(path_bin+".G.bin", datas_G, parameter_picture.Get_size_array_2D());
             std::cout << "Fin write_bin_char G" << std::endl;
            
-            //write_bin(path_bin, datas, parameter_picture.Get_size_array_2D());
-            parameter_picture.print_file(path_txt);
-            file_generate.exist = true;
+
             free(datas);
             free(datas_BW);
         }
@@ -153,6 +160,7 @@ File_Generate run(ParameterPicture parameter_picture, std::string baseDir, int i
     catch (const std::exception &)
     {
         free(datas);
+        free(datas_BW);
         file_generate.exist = false;
         if (if_file_exist(path_txt))
             std::remove(path_txt.c_str());
@@ -231,7 +239,7 @@ int main()
 
     // Construction du nom de base du répertoire
     std::string baseDir = "datas_" + id_cuda_str + "_" + std::to_string(lenG) + "p";
-    ParameterPicture parameter_picture(6, lenG, make_double2(-2.0, -1.3), (1.3 + 1.3) / (double)floorf(sqrtf((float)lenG)), 2, (256*6)-1, Type_Fractal::Mandelbrot);
+    ParameterPicture parameter_picture(7, lenG, make_double2(-2.0, -1.3), (1.3 + 1.3) / (double)floorf(sqrtf((float)lenG)), 2, (256*6)-1, Type_Fractal::Mandelbrot);
     parameter_picture.type_variable = Type_Variable::int_32;
     run(parameter_picture, baseDir, id_cuda);
 }

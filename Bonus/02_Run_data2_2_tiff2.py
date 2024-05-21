@@ -16,7 +16,7 @@ from math import *
 import gc
 # Librairies de création de fichiers 7zip
 import py7zr
-
+from pprint import pprint
 ####################  2. Les constantes ####################
 
 # Nombre de Thread lancé
@@ -104,6 +104,7 @@ def sub_main_bin_2_tif(value:int):
             baseDir = "./"# makeBaseDir(nbpts)
             liste_paths = lister_paths_bin_g(baseDir,nb_thread,value)
             liste_paths+= lister_paths_bin_bw(baseDir,nb_thread,value)
+            pprint(liste_paths)
             for path_bin in liste_paths:
                 file_txt = os.path.join(path_bin, FILE_TXT)
                 file_bin_g = os.path.join(path_bin, FILE_BIN_G)
